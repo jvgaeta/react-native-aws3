@@ -1,10 +1,8 @@
 {
-  "name": "react-native-aws3",
+  "name": "@jvgaeta/react-native-aws3",
   "version": "0.0.8",
   "description": "Pure JavaScript react native library for uploading to AWS S3",
-  "author": {
-    "name": "Ben Reinhart"
-  },
+  "author": "Ben Reinhart",
   "keywords": [
     "react",
     "react-native",
@@ -47,10 +45,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benjreinhart/react-native-aws3"
+    "url": "git+https://github.com/benjreinhart/react-native-aws3.git"
   },
   "bugs": {
     "url": "https://github.com/benjreinhart/react-native-aws3/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/benjreinhart/react-native-aws3#readme"
 }
