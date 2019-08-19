@@ -35,6 +35,7 @@ export class S3Policy {
     const timeDelta = options.timeDelta || 0;
     const policyExpiresIn = FIVE_MINUTES - timeDelta;
     const expirationDate = new Date(date.getTime() + policyExpiresIn);
+    const metadata = options.metadata || {};
 
     const policyParams = {
       ...options,
@@ -44,8 +45,8 @@ export class S3Policy {
       yyyymmddDate: dateToString(date, 'yyyymmdd'),
       expirationDate: dateToString(expirationDate, 'iso8601'),
       successActionStatus: String(options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS),
-      metadata: options.metadata || {}
-    }
+      metadata: metadata
+    };
 
     policyParams.credential = [
       policyParams.accessKey,
@@ -147,16 +148,18 @@ const formatPolicyForEncoding = (policy) => {
     ]
   };
   
-  if(policy.sessionToken) {
+  if (policy.sessionToken) {
     formattedPolicy.conditions.push({'x-amz-security-token': policy.sessionToken});
   }
 
   if (policy.metadata) {
     Object.keys(policy.metadata).forEach((k) => {
       let metadata = String(policy.metadata[k]);
-      formattedPolicy.conditions.push({[k]: metadata});
+      formattedPolicy.conditions.push({k: metadata});
     });
-  }
+  };
+
+  console.log(formattedPolicy);
   
   return formattedPolicy;
 }
