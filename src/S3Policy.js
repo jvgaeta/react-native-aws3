@@ -100,8 +100,12 @@ const getPolicyParams = (options) => {
     successActionStatus: '' + (options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS)
   };
   
-  if(options.sessionToken) {
+  if (options.sessionToken) {
     policyParams.sessionToken = options.sessionToken;
+  }
+
+  if (options.metadata) {
+    policyParams.metadata = options.metadata;
   }
 
   return policyParams;
@@ -144,6 +148,13 @@ const formatPolicyForEncoding = (policy) => {
   
   if(policy.sessionToken) {
     formattedPolicy.conditions.push({'x-amz-security-token': policy.sessionToken});
+  }
+
+  if (policy.metadata) {
+    Object.keys(policy.metadata).forEach((k) => {
+      let metadata = String(policy.metadata[k]);
+      formattedPolicy.conditions.push({[k]: metadata});
+    });
   }
   
   return formattedPolicy;
