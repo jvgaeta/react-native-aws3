@@ -44,8 +44,7 @@ export class S3Policy {
       amzDate: dateToString(date, 'amz-iso8601'),
       yyyymmddDate: dateToString(date, 'yyyymmdd'),
       expirationDate: dateToString(expirationDate, 'iso8601'),
-      successActionStatus: String(options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS),
-      metadata: metadata
+      successActionStatus: String(options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS)
     };
 
     policyParams.credential = [
@@ -99,15 +98,12 @@ const getPolicyParams = (options) => {
     key: options.key,
     region: options.region,
     secretKey: options.secretKey,
-    successActionStatus: '' + (options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS)
+    successActionStatus: '' + (options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS),
+    metadata: options.metadata
   };
   
   if (options.sessionToken) {
     policyParams.sessionToken = options.sessionToken;
-  }
-
-  if (options.metadata) {
-    policyParams.metadata = options.metadata;
   }
 
   return policyParams;
@@ -128,13 +124,6 @@ const formatPolicyForRequestBody = (base64EncodedPolicy, signature, options) => 
   
   if (options.sessionToken) {
     policyForRequestBody['X-Amz-Security-Token'] = options.sessionToken;
-  }
-
-  if (policy.metadata) {
-    Object.keys(policy.metadata).forEach((k) => {
-      let metadata = String(policy.metadata[k]);
-      policyForRequestBody[[k]] = metadata;
-    });
   }
   
   return policyForRequestBody;
