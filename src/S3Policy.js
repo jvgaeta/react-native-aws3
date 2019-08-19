@@ -155,11 +155,11 @@ const formatPolicyForEncoding = (policy) => {
   if (policy.metadata) {
     Object.keys(policy.metadata).forEach((k) => {
       let metadata = String(policy.metadata[k]);
-      formattedPolicy.conditions.push({k: metadata});
+      formattedPolicy.conditions.push({[k]: metadata});
     });
   };
 
-  console.log(formattedPolicy);
+  console.error(formattedPolicy);
   
   return formattedPolicy;
 }

@@ -43,7 +43,6 @@ export class RNS3 {
     const url = `https://${options.bucket}.${options.awsUrl || AWS_DEFAULT_S3_HOST}`;
     const method = "POST";
     const policy = S3Policy.generate(options);
-
     let request = Request.create(url, method, policy);
     request.set('file', file);
     return request.send().then(setBodyAsParsedXML);
