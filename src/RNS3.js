@@ -35,9 +35,9 @@ export class RNS3 {
     options = {
       ...options,
       key: (options.keyPrefix || '') + file.name,
-      date: new Date,
       contentType: file.type,
-      metadata: Metadata.generate(options)
+      metadata: Metadata.generate(options),
+      date: new Date
     }
 
     const url = `https://${options.bucket}.${options.awsUrl || AWS_DEFAULT_S3_HOST}`;
