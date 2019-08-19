@@ -126,8 +126,15 @@ const formatPolicyForRequestBody = (base64EncodedPolicy, signature, options) => 
     "X-Amz-Signature": signature,
   }
   
-  if(options.sessionToken) {
+  if (options.sessionToken) {
     policyForRequestBody['X-Amz-Security-Token'] = options.sessionToken;
+  }
+
+  if (policy.metadata) {
+    Object.keys(policy.metadata).forEach((k) => {
+      let metadata = String(policy.metadata[k]);
+      policyForRequestBody[[k]] = metadata;
+    });
   }
   
   return policyForRequestBody;
@@ -157,9 +164,7 @@ const formatPolicyForEncoding = (policy) => {
       let metadata = String(policy.metadata[k]);
       formattedPolicy.conditions.push({[k]: metadata});
     });
-  };
-
-  console.error(formattedPolicy);
+  }
   
   return formattedPolicy;
 }
