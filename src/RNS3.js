@@ -45,7 +45,6 @@ export class RNS3 {
     const policy = S3Policy.generate(options);
 
     let request = Request.create(url, method, policy);
-    Object.keys(options.metadata).forEach((k) => request.set(k, options.metadata[k]));
     request.set('file', file);
     return request.send().then(setBodyAsParsedXML);
   }

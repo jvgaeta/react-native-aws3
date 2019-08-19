@@ -44,6 +44,7 @@ export class S3Policy {
       yyyymmddDate: dateToString(date, 'yyyymmdd'),
       expirationDate: dateToString(expirationDate, 'iso8601'),
       successActionStatus: String(options.successActionStatus || DEFAULT_SUCCESS_ACTION_STATUS),
+      metadata: options.metadata || {}
     }
 
     policyParams.credential = [
