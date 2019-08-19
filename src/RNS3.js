@@ -46,6 +46,7 @@ export class RNS3 {
 
     let request = Request.create(url, method, policy);
     request.set('file', file);
+    Object.keys(options.metadata).forEach((k) => request.set(k, options.metadata[k]));
     return request.send().then(setBodyAsParsedXML);
   }
 }
