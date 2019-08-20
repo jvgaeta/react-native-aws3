@@ -35,7 +35,6 @@ export class S3Policy {
     const timeDelta = options.timeDelta || 0;
     const policyExpiresIn = FIVE_MINUTES - timeDelta;
     const expirationDate = new Date(date.getTime() + policyExpiresIn);
-    const metadata = options.metadata || {};
 
     const policyParams = {
       ...options,
@@ -143,16 +142,16 @@ const formatPolicyForEncoding = (policy) => {
        {"x-amz-date": policy.amzDate}
     ]
   };
-  
-  if (policy.sessionToken) {
-    formattedPolicy.conditions.push({'x-amz-security-token': policy.sessionToken});
-  }
 
   if (policy.metadata) {
     Object.keys(policy.metadata).forEach((k) => {
       let metadata = String(policy.metadata[k]);
       formattedPolicy.conditions.push({[k]: metadata});
     });
+  }
+  
+  if (policy.sessionToken) {
+    formattedPolicy.conditions.push({'x-amz-security-token': policy.sessionToken});
   }
   
   return formattedPolicy;
